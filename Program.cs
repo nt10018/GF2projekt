@@ -1,45 +1,45 @@
 ﻿using System;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Security.Cryptography.X509Certificates;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Numerics;
 
 namespace GF2projekt
 {
-    // Class for functions
-    class Functions
+    class Program
     {
         // Create a pool for registered users
-        private int[] registrations = { };
+        static int[] registrations = {
+            41000000,41111111,41222222,41333333,41444444,41555555,41666666,41777777,41888888,41999999,
+            51000000,51111111,51222222,51333333,51444444,51555555,51666666,51777777,51888888,51999999,
+            61000000,61111111,61222222,61333333,61444444,61555555
+        };
 
-        private string[] identities = {
-            "Ian Will 47 - Maple St. 13",
-            "Hank Nate 71 - Magnolia St. 190",
-            "Ian Gavin 74 - Fir St. 87",
-            "Ivy Quincy 46 - Cedar St. 239",
-            "Sam Aaron 76 - Cherry St. 40",
-            "Kathy Kevin 47 - Magnolia St. 18",
-            "Jill Hank 34 - Hickory St. 202",
-            "Will Kevin 21 - Main St. 125",
-            "Zack Quincy 61 - Birch St. 212",
-            "Frank Lily 34 - Spruce St. 232",
-            "Quincy Hank 43 - Sycamore St. 118",
-            "Ivy Quincy 43 - Chestnut St. 145",
-            "Bob Tina 27 - Spruce St. 62",
-            "Olivia Jane 56 - Pine St. 65",
-            "Tina Diana 61 - Chestnut St. 139",
-            "Ivy Yara 31 - Dogwood St. 218",
-            "Xander Quincy 77 - Birch St. 205",
-            "Aaron Quinn 61 - Elm St. 180",
-            "Jack Yosef 46 - Hickory St. 138",
-            "Tara Kathy 31 - Oak St. 183",
-            "Owen Ivy 37 - Ash St. 96",
-            "Penny Nate 58 - Walnut St. 54",
-            "Mason Nina 35 - Pine St. 17",
-            "Lily Mona 26 - Fir St. 190",
-            "Vince Riley 23 - Fir St. 96",
-            "Alice Penny 55 - Cherry St. 92",
+        static string[] identities = {
+            // Numnber - Name Age - Address
+            "41000000 - Ian Will 47 - Maple St. 13",
+            "41111111 - Hank Nate 71 - Magnolia St. 190",
+            "41222222 - Ian Gavin 74 - Fir St. 87",
+            "41333333 - Ivy Quincy 46 - Cedar St. 239",
+            "41444444 - Sam Aaron 76 - Cherry St. 40",
+            "41555555 - Kathy Kevin 47 - Magnolia St. 18",
+            "41666666 - Jill Hank 34 - Hickory St. 202",
+            "41777777 - Will Kevin 21 - Main St. 125",
+            "41888888 - Zack Quincy 61 - Birch St. 212",
+            "41999999 - Frank Lily 34 - Spruce St. 232",
+            "51000000 - Quincy Hank 43 - Sycamore St. 118",
+            "51111111 - Ivy Quincy 43 - Chestnut St. 145",
+            "51222222 - Bob Tina 27 - Spruce St. 62",
+            "51333333 - Olivia Jane 56 - Pine St. 65",
+            "51444444 - Tina Diana 61 - Chestnut St. 139",
+            "51555555 - Ivy Yara 31 - Dogwood St. 218",
+            "51666666 - Xander Quincy 77 - Birch St. 205",
+            "51777777 - Aaron Quinn 61 - Elm St. 180",
+            "51888888 - Jack Yosef 46 - Hickory St. 138",
+            "51999999 - Tara Kathy 31 - Oak St. 183",
+            "61000000 - Owen Ivy 37 - Ash St. 96",
+            "61111111 - Penny Nate 58 - Walnut St. 54",
+            "61222222 - Mason Nina 35 - Pine St. 17",
+            "61333333 - Lily Mona 26 - Fir St. 190",
+            "61444444 - Vince Riley 23 - Fir St. 96",
+            "61555555 - Alice Penny 55 - Cherry St. 92",
         };
         /*
         // Create a pool for user registrations, associating user ID with full names and addresses
@@ -93,8 +93,24 @@ namespace GF2projekt
         }
         */
 
-        public void BackMenu(string msg)
+        
+
+        static void Main(string[] args)
         {
+            do
+            {
+                StartMenu();
+            }
+            while (true);
+
+            //Console.ReadLine();
+        }
+
+        // Simple back to menu function with countdown
+        static void BackMenu(string msg)
+        {
+            Console.Clear();
+
             byte seconds = 3;
             for (int i = 0; i < 3; i++)
             {
@@ -103,10 +119,17 @@ namespace GF2projekt
             }
         }
 
-        public void StartMenu()
+        static void Continue()
         {
-            Console.Clear();
-            
+            Thread.Sleep(300); // Small delay for readability
+
+            Console.Write("\n\nPress any key to continue...");
+            Console.ReadKey(true);
+        }
+
+        // Start Menu function
+        static void StartMenu()
+        {
             // Header
             Console.Write("Options\n\n[1] Register\n[2] Find User\n[3] Show All\n\nPress a number: ");
 
@@ -130,61 +153,47 @@ namespace GF2projekt
             }
         }
 
-        private void Register()
+        static void Register()
         {
+            Console.Clear();
+
             Console.WriteLine("Enter phone number to register:");
 
             string input = int.Parse(Console.ReadLine()).ToString();
             if (input.Length != 8)
-            {
                 BackMenu("Invalid input.");
-            }
 
-
-
+            Continue();
         }
 
-        private void FindUser()
+        static void FindUser()
         {
+            Console.Clear();
+
             Console.Write("Search index: ");
 
-        }
 
-        private void ShowAll()
+            Continue();
+        }
+        
+        static void ShowAll()
         {
+            Console.Clear();
+
             Console.WriteLine("Registered Users:\n");
-            for (int i; i < identities.Length; i++)
+            for (int i = 0; i < identities.Length; i++)
             {
-                Console.WriteLine($"- {identities[id]}");
+                Console.WriteLine($"- {identities[i]}");
             }
-        }
-    }
 
-    // Main program class
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            // Generate and register default users and identities
-            //functions.RegisterDefaults();
-            do
-            {
-                Functions.StartMenu();
-            }
-            while (true);
-
-            Console.ReadLine();
+            Continue();
         }
     }
 }
 
 /*
- * Function Class
- * TODO: Associate numbers with identities
- * 
- * 
  * Register()
- * TODO: input, validation
+ * TODO: input, validation - (DONE)
  * TODO: if registered, fail
  * TODO: if not, validate and ask for name, address, age, mail, etc.
  * TODO: save to identities and registrations
@@ -196,7 +205,4 @@ namespace GF2projekt
  * ShowAll()
  * TODO: 14:X Paging
  * TODO: Show average age
- * 
- * Main()
- * TODO: 
 */

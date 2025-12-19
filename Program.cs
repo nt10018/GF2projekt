@@ -41,59 +41,6 @@ namespace GF2projekt
             "61444444 - Vince Riley 23 - Fir St. 96",
             "61555555 - Alice Penny 55 - Cherry St. 92",
         };
-        /*
-        // Create a pool for user registrations, associating user ID with full names and addresses
-        private Dictionary<int, string> registrationIdentity = new Dictionary<int, string>();
-
-        // Possible default names and addresses for generating identities
-        private string[] DEFAULT_NAMES =
-        {
-            "John", "Jane", "Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace", "Hank",
-            "Ivy", "Jack", "Kathy", "Leo", "Mona", "Nate", "Olivia", "Paul", "Quincy", "Rachel",
-            "Sam", "Tina", "Uma", "Vince", "Wendy", "Xander", "Yara", "Zack",
-            "Aaron", "Beth", "Cody", "Daisy", "Ethan", "Fiona", "Gavin", "Holly", "Ian", "Jill",
-            "Kevin", "Lily", "Mason", "Nina", "Owen", "Penny", "Quinn", "Riley", "Sean", "Tara",
-            "Ulysses", "Vera", "Will", "Xenia", "Yosef", "Zoe"
-        };
-
-        private string[] DEFAULT_ADDRESSES =
-        {
-            "Main St.", "Oak St.", "Pine St.", "Maple St.", "Cedar St.", "Elm St.", "Birch St.", "Walnut St.",
-            "Chestnut St.", "Spruce St.", "Willow St.", "Ash St.", "Poplar St.", "Hickory St.", "Sycamore St.",
-            "Cherry St.", "Magnolia St.", "Dogwood St.", "Fir St.", "Hemlock St."
-        };
-
-        public void RegisterDefaults()
-        {
-            int generateAmount = new Random().Next(40000, 50000);
-            for (int i = 0; i < generateAmount; i++)
-            {
-                // Generate a new registration
-                int _phoneNumber = new Random().Next(11000000, 91000000);
-                Array.Resize(ref registrations, registrations.Length + 1);
-                registrations[^1] = _phoneNumber;
-
-                // Skip if already registered
-                if (registrationIdentity.ContainsKey(_phoneNumber))
-                    { i--; continue; }
-
-                Console.WriteLine($"Registering user {_phoneNumber}... {i}/{generateAmount}");
-
-                // Generate identity
-                string _name1 = DEFAULT_NAMES[new Random().Next(0, DEFAULT_NAMES.Length)];
-                string _name2 = DEFAULT_NAMES[new Random().Next(0, DEFAULT_NAMES.Length)];
-                string _address = DEFAULT_ADDRESSES[new Random().Next(0, DEFAULT_ADDRESSES.Length)];
-                string _streetNumber = new Random().Next(2, 254).ToString();
-
-                // Build record, name/age/address
-                string _identity = $"{_name1} {_name2} {(byte)new Random().Next(18, 80)} - {_address} {_streetNumber}";
-                registrationIdentity.Add(_phoneNumber, _identity);
-
-            }
-        }
-        */
-
-        
 
         static void Main(string[] args)
         {
@@ -205,4 +152,59 @@ namespace GF2projekt
  * ShowAll()
  * TODO: 14:X Paging
  * TODO: Show average age
+*/
+
+
+
+
+/*
+// Create a pool for user registrations, associating user ID with full names and addresses
+static Dictionary<int, string> registrationIdentity = new Dictionary<int, string>();
+
+// Possible default names and addresses for generating identities
+static string[] DEFAULT_NAMES =
+{
+            "John", "Jane", "Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace", "Hank",
+            "Ivy", "Jack", "Kathy", "Leo", "Mona", "Nate", "Olivia", "Paul", "Quincy", "Rachel",
+            "Sam", "Tina", "Uma", "Vince", "Wendy", "Xander", "Yara", "Zack",
+            "Aaron", "Beth", "Cody", "Daisy", "Ethan", "Fiona", "Gavin", "Holly", "Ian", "Jill",
+            "Kevin", "Lily", "Mason", "Nina", "Owen", "Penny", "Quinn", "Riley", "Sean", "Tara",
+            "Ulysses", "Vera", "Will", "Xenia", "Yosef", "Zoe"
+        };
+
+static string[] DEFAULT_ADDRESSES =
+{
+            "Main St.", "Oak St.", "Pine St.", "Maple St.", "Cedar St.", "Elm St.", "Birch St.", "Walnut St.",
+            "Chestnut St.", "Spruce St.", "Willow St.", "Ash St.", "Poplar St.", "Hickory St.", "Sycamore St.",
+            "Cherry St.", "Magnolia St.", "Dogwood St.", "Fir St.", "Hemlock St."
+        };
+
+static void RegisterDefaults()
+{
+    int generateAmount = new Random().Next(40000, 50000);
+    for (int i = 0; i < generateAmount; i++)
+    {
+        // Generate a new registration
+        int _phoneNumber = new Random().Next(11000000, 91000000);
+        Array.Resize(ref registrations, registrations.Length + 1);
+        registrations[^1] = _phoneNumber;
+
+        // Skip if already registered
+        if (registrationIdentity.ContainsKey(_phoneNumber))
+        { i--; continue; }
+
+        Console.WriteLine($"Registering user {_phoneNumber}... {i}/{generateAmount}");
+
+        // Generate identity
+        string _name1 = DEFAULT_NAMES[new Random().Next(0, DEFAULT_NAMES.Length)];
+        string _name2 = DEFAULT_NAMES[new Random().Next(0, DEFAULT_NAMES.Length)];
+        string _address = DEFAULT_ADDRESSES[new Random().Next(0, DEFAULT_ADDRESSES.Length)];
+        string _streetNumber = new Random().Next(2, 254).ToString();
+
+        // Build record, name/age/address
+        string _identity = $"{_name1} {_name2} {(byte)new Random().Next(18, 80)} - {_address} {_streetNumber}";
+        registrationIdentity.Add(_phoneNumber, _identity);
+
+    }
+}
 */

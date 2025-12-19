@@ -63,6 +63,7 @@ namespace GF2projekt
             for (int i = 0; i < seconds; i++)
             {
                 Thread.Sleep(1000); // 1 second delay
+
                 seconds--; // -1
                 Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
                 Console.Write(seconds);
@@ -135,8 +136,8 @@ namespace GF2projekt
 
                 else
                 {
-                    // Register new user
-
+                    // TODO: Validate and ask for name, address, age, mail, etc.
+                    // TODO: Save to identities and registrations
 
                     Continue();
                 }
@@ -149,6 +150,7 @@ namespace GF2projekt
 
             Console.Write("Search index: ");
 
+            // TODO: Search functionality (max 14 lines)
 
             Continue();
         }
@@ -156,6 +158,9 @@ namespace GF2projekt
         static void ShowAll()
         {
             Console.Clear();
+
+            // TODO: Paging
+            // TODO: Average age
 
             Console.WriteLine("Registered Users:\n");
             for (int i = 0; i < identities.Length; i++)
@@ -170,8 +175,6 @@ namespace GF2projekt
 
 /*
  * Register()
- * TODO: input, validation - (DONE)
- * TODO: if registered, fail
  * TODO: if not, validate and ask for name, address, age, mail, etc.
  * TODO: save to identities and registrations
  * 

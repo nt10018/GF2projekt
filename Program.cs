@@ -63,6 +63,8 @@ namespace GF2projekt
             {
                 Console.Write($"{msg} Returning to menu... {seconds}");
                 --seconds;
+                Thread.Sleep(1000);
+                Console.Clear();
             }
         }
 
@@ -77,6 +79,8 @@ namespace GF2projekt
         // Start Menu function
         static void StartMenu()
         {
+            Console.Clear();
+
             // Header
             Console.Write("Options\n\n[1] Register\n[2] Find User\n[3] Show All\n\nPress a number: ");
 
@@ -104,12 +108,30 @@ namespace GF2projekt
         {
             Console.Clear();
 
-            Console.WriteLine("Enter phone number to register:");
+            Console.Write("Enter phone number to register: ");
 
-            string input = int.Parse(Console.ReadLine()).ToString();
-            if (input.Length != 8)
+            string input = Console.ReadLine();
+            if (input != null && input.Length != 8)
                 BackMenu("Invalid input.");
+            else
+            {
+                input = int.Parse(input).ToString();
 
+                // Bool return method, since returning outside functions isn't allowed.
+                bool registered = false;
+                for (int i = 0; i < registrations.Length; i++)
+                {
+                    if (registrations[i].ToString() == input)
+                    {
+                        registered = true;
+                    }
+                }
+
+                if (registered)
+                    BackMenu(input + " is already registered.");
+            }
+
+            
             Continue();
         }
 

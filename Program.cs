@@ -56,16 +56,19 @@ namespace GF2projekt
         // Simple back to menu function with countdown
         static void BackMenu(string msg)
         {
-            Console.Clear();
-
             byte seconds = 3;
-            for (int i = 0; i < 3; i++)
+            Console.Write($"{msg} Returning to menu... {seconds}");
+
+            // Starting at 1 -- already printed first second
+            for (int i = 0; i < seconds; i++)
             {
-                Console.Write($"{msg} Returning to menu... {seconds}");
-                --seconds;
-                Thread.Sleep(1000);
-                Console.Clear();
+                Thread.Sleep(1000); // 1 second delay
+                seconds--; // -1
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Console.Write(seconds);
             }
+
+            Thread.Sleep(1000); // Final delay
         }
 
         static void Continue()
@@ -129,10 +132,15 @@ namespace GF2projekt
 
                 if (registered)
                     BackMenu(input + " is already registered.");
-            }
 
-            
-            Continue();
+                else
+                {
+                    // Register new user
+
+
+                    Continue();
+                }
+            }
         }
 
         static void FindUser()

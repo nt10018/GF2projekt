@@ -42,6 +42,12 @@ namespace GF2projekt
             "61555555 - Alice Penny 55 - Cherry St. 92",
         };
 
+        static int[] ages = {
+            47,71,74,46,76,47,34,21,61,34,
+            43,43,27,56,61,31,77,61,46,31,
+            37,58,35,26,23,55
+        };
+
         static void Main(string[] args)
         {
             do
@@ -157,18 +163,55 @@ namespace GF2projekt
         
         static void ShowAll()
         {
-            Console.Clear();
+            int pageSize = 14;
+            int page = 0;
+            int averageAge = (int)ages.Average();
 
-            // TODO: Paging
-            // TODO: Average age
-
-            Console.WriteLine("Registered Users:\n");
-            for (int i = 0; i < identities.Length; i++)
+            bool exit = false;
+            while (!exit)
             {
-                Console.WriteLine($"- {identities[i]}");
+                Console.Clear();
+
+                // .Skip skips first X entries, .Take takes next X entries.
+                string[] entries = identities.Skip(page * pageSize).Take(pageSize).ToArray();
+
+                // Calculate max page, ceil to round up, casting variable to double to avoid int/decimal conflicts (e.g. 1.5)
+                int maxPage = (int)Math.Ceiling((double)identities.Length / pageSize);
+
+                Console.WriteLine($"Average Age: {averageAge}");
+                Console.WriteLine($"Registered Users: {identities.Length} (Page {page + 1} of {maxPage}):\n");
+
+                foreach (var user in entries)
+                {
+                    int entry = Array.IndexOf(identities, user) + 1;
+                    Console.WriteLine($"{entry}. {user}");
+                }
+
+                // Paging Controls
+                Console.WriteLine("\n[1] Previous Page | [2] Next Page | [3] Back to Menu");
+
+                char input = Console.ReadKey(true).KeyChar;
+                switch (input)
+                {
+                    case '1':
+                        if (page > 0) // Prevent negative pages
+                            page--; // Decrease by 1
+                        break;
+
+                    case '2':
+                        page++; // Increase by 1
+                        break;
+
+                    case '3':
+                        exit = true;
+                        StartMenu();
+                        break;
+
+                    default:
+                        break;
+                }
             }
 
-            Continue();
         }
     }
 }
@@ -181,10 +224,6 @@ namespace GF2projekt
  * FindUser()
  * TODO: Search functionality
  * TODO: Max 14 lines
- * 
- * ShowAll()
- * TODO: 14:X Paging
- * TODO: Show average age
 */
 
 

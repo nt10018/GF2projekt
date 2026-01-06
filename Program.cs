@@ -86,6 +86,26 @@ namespace GF2projekt
             Console.ReadKey(true);
         }
 
+        static int CalculateAverage(int[] numberArray)
+        {
+            // Container for decimal numbers, we will turn it into a 32-bit integer later.
+            double returnValue = 0.0;
+
+            // Calculate average from given array
+            foreach (int number in numberArray)
+            {
+                returnValue += number;
+            }
+            returnValue /= numberArray.Length;
+
+            // Round up
+            returnValue = Math.Ceiling(returnValue);
+
+            // Return as an integer value
+            return (int)returnValue;
+        }
+
+
         // Start Menu function
         static void StartMenu()
         {
@@ -117,8 +137,10 @@ namespace GF2projekt
         static void Register()
         {
             Console.Clear();
-
+            
             Console.Write("Enter phone number to register: ");
+
+            // Validate input, check null value, length and existing registrations.
 
             string input = Console.ReadLine();
             if (input != null && input.Length != 8)
@@ -128,22 +150,93 @@ namespace GF2projekt
                 input = int.Parse(input).ToString();
 
                 // Bool return method, since returning outside functions isn't allowed.
-                bool registered = false;
+                bool alreadyRegistered = false;
                 for (int i = 0; i < registrations.Length; i++)
                 {
                     if (registrations[i].ToString() == input)
                     {
-                        registered = true;
+                        alreadyRegistered = true;
                     }
                 }
 
-                if (registered)
+                if (alreadyRegistered)
                     BackMenu(input + " is already registered.");
 
                 else
                 {
-                    // TODO: Validate and ask for name, address, age, mail, etc.
-                    // TODO: Save to identities and registrations
+                    bool registered = false;
+                    while (!registered)
+                    {
+                        Console.Clear();
+
+                        // First Name
+                        Console.Write("Enter First name: ");
+                        string firstName = Console.ReadLine();
+
+                        if (firstName == null || firstName.Length < 2 || firstName.Length > 12)
+                        {
+                            BackMenu("Invalid name. Please try again...");
+                            Thread.Sleep(500);
+                            continue;
+                        }
+
+                        // Last Name
+                        Console.Write("Enter Last name: ");
+                        string lastName = Console.ReadLine();
+
+                        if (lastName == null || lastName.Length < 2 || lastName.Length > 12)
+                        {
+                            BackMenu("Invalid name. Please try again...");
+                            Thread.Sleep(500);
+                            continue;
+                        }
+
+                        // Age
+                        Console.Write("Enter Age: ");
+                        string ageString = Console.ReadLine();
+
+                        int age = 0;
+                        bool ageValid = int.TryParse(ageString, out age); // Fallback for non-integer inputs
+
+                        if (!ageValid || age < 17 || age > 120)
+                        {
+                            BackMenu("Invalid age input. Please try again...");
+                            Thread.Sleep(500);
+                            continue;
+                        }
+
+                        // Address
+                        Console.Write("Enter Address: ");
+                        string address = Console.ReadLine();
+
+                        if (address == null || address.Length < 5 || address.Length > 30)
+                        {
+                            BackMenu("Invalid address. Please try again...");
+                            Thread.Sleep(500);
+                            continue;
+                        }
+
+                        // Build identity record (remembering "input" is phone number)
+                        string identity = $"{input} - {firstName} {lastName} {age} - {address}";
+
+                        // Save to arrays (allocating new space)
+
+                        Array.Resize(ref registrations, registrations.Length + 1);
+                        registrations[^1] = int.Parse(input);
+
+                        Array.Resize(ref identities, identities.Length + 1);
+                        identities[^1] = identity;
+
+                        Array.Resize(ref ages, ages.Length + 1);
+                        ages[^1] = age;
+
+                        // Array.Resize, gives the array exactly one more slot, so we can add new entries appropriately.
+                        // ^1 is the C# 8.0 syntax for "last index". We use it to add new entries to the end of the array.
+                        // "ref" keyword means referencing said array, to modify it directly.
+
+                        registered = true;
+                        Console.WriteLine($"\nSuccessfully registered {firstName} {lastName}!");
+                    }
 
                     Continue();
                 }
@@ -156,7 +249,25 @@ namespace GF2projekt
 
             Console.Write("Search index: ");
 
-            // TODO: Search functionality (max 14 lines)
+            string? input = Console.ReadLine();
+            int foundAmount = 0; // Counter for found entries (max 14)
+
+            for (int i = 0; i < identities.Length; i++)
+            {
+                if (foundAmount < 14)
+                {
+                    if (identities[i].Contains(input))
+                    {
+                        Console.Write($"\n{identities[i]}");
+                        foundAmount++;
+                    }
+                }
+            }
+
+            if (foundAmount == 0)
+                Console.WriteLine("\n\nNo users found with that index.");
+            else
+                Console.WriteLine($"\n\nTotal found entries: {foundAmount} (max 14 shown)");
 
             Continue();
         }
@@ -165,7 +276,7 @@ namespace GF2projekt
         {
             int pageSize = 14;
             int page = 0;
-            int averageAge = (int)ages.Average();
+            int averageAge = CalculateAverage(ages);
 
             bool exit = false;
             while (!exit)
@@ -175,14 +286,16 @@ namespace GF2projekt
                 // .Skip skips first X entries, .Take takes next X entries.
                 string[] entries = identities.Skip(page * pageSize).Take(pageSize).ToArray();
 
-                // Calculate max page, ceil to round up, casting variable to double to avoid int/decimal conflicts (e.g. 1.5)
-                int maxPage = (int)Math.Ceiling((double)identities.Length / pageSize);
+                // Calculate max page, Math.Ceiling to round up, divide total entries by page size.
+                // The value inside our Math function is casted to double to prevent decimals for integers.
+                int maxPage = (int)Math.Ceiling(  (double) identities.Length / pageSize  );
 
                 Console.WriteLine($"Average Age: {averageAge}");
                 Console.WriteLine($"Registered Users: {identities.Length} (Page {page + 1} of {maxPage}):\n");
 
                 foreach (var user in entries)
                 {
+                    // Convert index values. (similar to entries[user])
                     int entry = Array.IndexOf(identities, user) + 1;
                     Console.WriteLine($"{entry}. {user}");
                 }
@@ -215,16 +328,6 @@ namespace GF2projekt
         }
     }
 }
-
-/*
- * Register()
- * TODO: if not, validate and ask for name, address, age, mail, etc.
- * TODO: save to identities and registrations
- * 
- * FindUser()
- * TODO: Search functionality
- * TODO: Max 14 lines
-*/
 
 
 

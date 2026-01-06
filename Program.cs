@@ -48,13 +48,15 @@ namespace GF2projekt
             37,58,35,26,23,55
         };
 
+        static bool stayOpen = true;
+
         static void Main(string[] args)
         {
             do
             {
                 StartMenu();
             }
-            while (true);
+            while (stayOpen);
 
             //Console.ReadLine();
         }
@@ -112,7 +114,7 @@ namespace GF2projekt
             Console.Clear();
 
             // Header
-            Console.Write("Options\n\n[1] Register\n[2] Find User\n[3] Show All\n\nPress a number: ");
+            Console.Write("Options\n\n[1] Register\n[2] Find User\n[3] Show All\n[4] Exit Program\n\nPress a number: ");
 
             char? input = Console.ReadKey(true).KeyChar;
             switch (input)
@@ -125,6 +127,9 @@ namespace GF2projekt
                     break;
                 case '3':
                     ShowAll();
+                    break;
+                case '4':
+                    stayOpen = false;
                     break;
 
                 // Fallback: return to start menu
@@ -328,6 +333,8 @@ namespace GF2projekt
         }
     }
 }
+
+
 
 
 
